@@ -50,8 +50,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./defmt_cs/
-          file: ./defmt_cs/Dockerfile
+          context: .
+          file: ./Dockerfile
           push: true
           platforms: ${{ matrix.platform }}
           build-args: |
@@ -59,23 +59,8 @@ jobs:
             RENODE_PKG=${{ matrix.renode_pkg }}
           tags: |
             ${{ env.IMAGE_NAME }}:latest-${{ matrix.arch_tag }}
-#          labels: |
-#            ${{ steps.meta.outputs.labels.created }}
-#            ${{ steps.meta.outputs.labels.description }}
-#            ${{ steps.meta.outputs.labels.licenses }}
-#            ${{ steps.meta.outputs.labels.revision }}
-#            ${{ steps.meta.outputs.labels.source }}
-
-#labels:
-#  - org.opencontainers.image.created=2026-02-02T19:14:16.344Z
-#  - org.opencontainers.image.description=
-#  - org.opencontainers.image.licenses=
-#  - org.opencontainers.image.revision=806e75717400e16acb6d356254a9082734d70426
-#  - org.opencontainers.image.source=https://github.com/blumenplace/skju
-#  - org.opencontainers.image.title=skju
-#  - org.opencontainers.image.url=https://github.com/blumenplace/skju
-#  - org.opencontainers.image.version=main
-
+          labels: |
+            ${{ steps.meta.outputs.labels }}
 
   publish-manifest:
     runs-on: ubuntu-latest
